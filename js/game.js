@@ -34,10 +34,30 @@ const showQuestion = () => {
   currCorrectIndex = correctIndex;
   questionNumber.innerText = questionIndex + 1;
   categoryElement.innerText = category;
-  questionText.innerText = question;
+  questionText.innerHTML = question;
   answerOptions.forEach((button, idx) => {
-    button.innerText = answers[idx];
+    button.innerHTML = answers[idx];
   });
 };
 
+const lockAnswers = () => {
+  answerOptions.forEach((button) => {
+    button.disabled = true;
+  });
+};
+
+const checkAnswer = (idx) => {
+  if (idx == currCorrectIndex) {
+    answerOptions[idx].classList.toggle("correct");
+  } else {
+    answerOptions[idx].classList.toggle("false");
+    answerOptions[currCorrectIndex].classList.toggle("correct");
+  }
+  lockAnswers();
+};
+
 window.addEventListener("load", fetchData);
+answerOptions.forEach((button, idx) => {
+  const handler = () => checkAnswer(idx);
+  button.addEventListener("click", handler);
+});
