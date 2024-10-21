@@ -12,7 +12,8 @@ const finishButton = document.getElementById("finish-button");
 const error = document.getElementById("error");
 const bonusScore = 10;
 const difficulty = localStorage.getItem("level") || "medium";
-const URL = `https://opentdb.com/api.php?amount=10&category=11&difficulty=${difficulty}&type=multiple`;
+const category = localStorage.getItem("category") || "9";
+const URL = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`;
 
 let formattedData = null;
 let questionIndex = 0;
