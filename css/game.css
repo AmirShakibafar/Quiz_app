@@ -126,3 +126,11 @@ h4 {
 .false:hover {
   background-color: #a52422;
 }
+
+#error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #a52422;
+  display: none;
+}

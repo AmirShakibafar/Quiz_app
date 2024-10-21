@@ -1,4 +1,4 @@
-const score = JSON.parse(localStorage.getItem("score")); 
+const score = JSON.parse(localStorage.getItem("score")) || 0; 
 const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 const scoreElement = document.querySelector("p");
@@ -16,7 +16,7 @@ const saveHandler = () => {
      highScores.push(finalScore);
      highScores.sort((a, b) => b.score - a.score);
      highScores.splice(10);
-     localStorage.setItem("highScores", highScores);
+     localStorage.setItem("highScores", JSON.stringify(highScores));
      localStorage.removeItem("scores");
      window.location.assign("/");
 };

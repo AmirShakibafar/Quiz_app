@@ -1,5 +1,4 @@
 import formatData from "./formatData.js";
-
 const loader = document.getElementById("loader");
 const container = document.getElementById("container");
 const questionNumber = document.getElementById("question-number");
@@ -10,9 +9,10 @@ const questionText = document.getElementById("question-text");
 const scoreElement = document.getElementById("score");
 const nextButton = document.getElementById("next-button");
 const finishButton = document.getElementById("finish-button");
+const error = document.getElementById("error");
 const bonusScore = 10;
-const URL =
-  "https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple";
+const difficulty = localStorage.getItem("level") || "medium";
+const URL = `https://opentdb.com/api.php?amount=10&category=11&difficulty=${difficulty}&type=multiple`;
 
 let formattedData = null;
 let questionIndex = 0;
@@ -21,11 +21,15 @@ let score = 0;
 let is_accepted = true;
 
 const fetchData = async () => {
-  const response = await fetch(URL);
-  const json = await response.json();
-  formattedData = formatData(json.results);
-  console.log(formattedData);
-  start();
+  try {
+    const response = await fetch(URL);
+    const json = await response.json();
+    formattedData = formatData(json.results);
+    start();
+  } catch (e) {
+    loader.style.display = "none";
+    error.style.display = "block";
+  }
 };
 
 const start = () => {
@@ -75,8 +79,6 @@ const nextButtonHandler = () => {
     finishGame();
   }
 };
-
-
 
 finishButton.addEventListener("click", finishGame);
 nextButton.addEventListener("click", nextButtonHandler);
